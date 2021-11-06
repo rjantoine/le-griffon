@@ -1,0 +1,168 @@
+import * as React from "react"
+import {Col, Container, Row} from "react-bootstrap";
+import {graphql, Link} from "gatsby"
+import OverlayCard from "../components/OverlayCard";
+import ListCard from "../components/ListCard";
+import Theme from "../templates/Theme";
+import LargeListCard from "../components/LargeListCard";
+import {GatsbyImage} from "gatsby-plugin-image";
+
+export const query = graphql`
+    query BlogPosts {
+        posts:allMdx(sort: {fields: frontmatter___date, order: DESC}) {
+            nodes {
+                id
+                slug
+                excerpt(pruneLength: 120, truncate: false)
+                shortExcerpt: excerpt(pruneLength: 40, truncate: false)
+                frontmatter {
+                    title
+                    date(formatString: "D MMMM Y", locale: "fr")
+                    featuredImg { childImageSharp {
+                        lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
+                        smSquareFormat: gatsbyImageData(width:120, height:120, transformOptions: {fit: COVER, cropFocus:NORTH })
+                    } }
+                }
+            }
+        }
+        annonces:allMdx(
+            filter: {frontmatter: {category: {eq: "annonces"}}}
+            sort: {fields: frontmatter___date, order: DESC}
+        ) {
+            nodes {
+                id
+                slug
+                excerpt(pruneLength: 250, truncate: false)
+                shortExcerpt: excerpt(pruneLength: 40, truncate: false)
+                frontmatter {
+                    title
+                    date(formatString: "D MMMM Y", locale: "fr")
+                    featuredImg { childImageSharp {
+                        lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
+                        smSquareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
+                    } }
+                }
+            }
+        }
+        activites:allMdx(
+            filter: {frontmatter: {category: {eq: "activites"}}}
+            sort: {fields: frontmatter___date, order: DESC}
+        ) {
+            nodes {
+                id
+                slug
+                excerpt(pruneLength: 250, truncate: false)
+                shortExcerpt: excerpt(pruneLength: 40, truncate: false)
+                frontmatter {
+                    title
+                    date(formatString: "D MMMM Y", locale: "fr")
+                    featuredImg { childImageSharp {
+                        lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
+                        smSquareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
+                    } }
+                }
+            }
+        }
+    }
+`
+
+// markup
+const IndexPage = ({data}) => {
+    let posts = data.posts.nodes
+  return (
+      <Theme title="Accueil" pathname='/'>
+              <main>
+                  <div className="py-4" style={{backgroundColor: 'white'}}>
+                      <Container>
+                          <Row className="py-4 align-items-center">
+                              <Col lg={7}>
+                                  { posts.slice(0,1).map( featuredPost => <OverlayCard post={featuredPost} /> ) }
+                              </Col>
+                              <Col lg={5} className="mt-4 m-lg-0">
+                                  <div className="my-auto">
+                                      { posts.slice(1,4).map(post => <ListCard post={post} />) }
+                                  </div>
+                              </Col>
+                          </Row>
+                      </Container>
+                  </div>
+                  <div className="bg-gray">
+                      <Container className="pb-5">
+                          <Row className="py-4">
+                              <Col>
+                                  <h2 className="mt-5"><Link to="/annonces/">Annonces</Link></h2>
+                                  <Row>
+                                      { data.annonces.nodes.slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                          <div class="card border-0 bg-gray">
+                                              <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
+                                              <div className="entry-meta-content">
+                                                  <div className="entry-date">le {post.frontmatter.date}</div>
+                                              </div>
+                                              <p className="mt-3 mb-2">{post.excerpt}</p>
+                                              <p className="read-more-wrap">
+                                                  <Link to={'/posts/'+post.slug} className="read-more">Lire davantage</Link>
+                                              </p>
+                                          </div>
+                                      </Col>) }
+                                  </Row>
+                                  <Row className="mt-5">
+                                      <Col>
+                                          { data.annonces.nodes.slice(3,10).map( post => <LargeListCard post={post} />) }
+                                      </Col>
+                                  </Row>
+                                  {
+                                      data.annonces.nodes.length > 10 &&
+                                      <Row className="mt-5">
+                                          <Col>
+                                              Voir les autres annonces...
+                                          </Col>
+                                      </Row>
+                                  }
+                              </Col>
+                          </Row>
+                      </Container>
+                  </div>
+                  <div className="bg-white">
+                      <Container>
+                          <Row className="py-4">
+                              <Col>
+                                  <h2 className="pt-5"><Link to="/activites/">Activités</Link></h2>
+                                  <Row>
+                                      { data.activites.nodes.slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                          <div class="card border-0">
+                                              <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
+                                              <div className="entry-meta-content">
+                                                  <div className="entry-date">le {post.frontmatter.date}</div>
+                                              </div>
+                                              <div className="entry-summary py-3">{post.excerpt}</div>
+                                              <p className="read-more-wrap">
+                                                  <Link to={'/posts/'+post.slug} className="read-more">Lire davantage</Link>
+                                              </p>
+                                          </div>
+                                      </Col>) }
+                                  </Row>
+                                  <Row className="mt-5">
+                                      <Col>
+                                          { data.activites.nodes.slice(3,10).map( post => <LargeListCard post={post} />) }
+                                      </Col>
+                                  </Row>
+                                  {
+                                      data.activites.nodes.length > 10 &&
+                                      <Row className="mt-5">
+                                          <Col>
+                                              Voir les autres annonces...
+                                          </Col>
+                                      </Row>
+                                  }
+                              </Col>
+                          </Row>
+                      </Container>
+                  </div>
+              </main>
+      </Theme>
+  )
+}
+
+export default IndexPage

@@ -22,7 +22,7 @@ function Theme({title, description, image: metaImage, pathname, children}) {
 
     const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null
     const metaDescription = description || site.siteMetadata.description
-    const image = metaImage ? `${site.siteMetadata.siteUrl}${metaImage}` : `${site.siteMetadata.siteUrl}/griffon-bg.gif`
+    const image = metaImage ? `${site.siteMetadata.siteUrl}${metaImage}` : `${site.siteMetadata.siteUrl}/griffon-bg.jpg`
 
     return (
         <>
@@ -51,7 +51,7 @@ function Theme({title, description, image: metaImage, pathname, children}) {
                     )
                 }
             />
-            <StaticImage src="../images/griffon-bg.gif" layout="fullWidth" aspectRatio={8} transformOptions={{fit: "cover", cropFocus: "center"}} />
+            <StaticImage src="../images/griffon-bg.jpg" layout="fullWidth" aspectRatio={8} transformOptions={{fit: "cover", cropFocus: "center"}} />
             <SiteNavbar />
                 <main className="site-main" style={{backgroundColor: '#ddd'}}>
                     {children}

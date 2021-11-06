@@ -25,7 +25,7 @@ const PurpleBorder = (props) => {
 
     return (
         <>
-            <StaticImage src="../images/griffon-bg.gif" layout="fullWidth" aspectRatio={8} transformOptions={{fit: "cover", cropFocus: "center"}} />
+            <StaticImage src="../images/griffon-bg.jpg" layout="fullWidth" aspectRatio={8} transformOptions={{fit: "cover", cropFocus: "center"}} />
             <SiteNavbar />
             <Container>
                 <Row className="pt-5">

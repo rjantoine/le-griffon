@@ -47,13 +47,17 @@ module.exports = {
       },
       __key: "posts",
     },
-    `gatsby-remark-images`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         mediaTypes: [`text/markdown`, `text/x-markdown`],
         gatsbyRemarkPlugins: [
-          `gatsby-remark-images`
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              linkImagesToOriginal: false,
+            },
+          },
         ],
       },
     },

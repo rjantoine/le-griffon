@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://legriffon.musingmonkeys.com",
+    siteUrl: "https://legriffon.org",
     title: "Centre communautaire Le Griffon",
     description: "Le Centre communautaire Le Griffon assure la promotion et la diffusion de la culture canadienne d’expression française dans la péninsule du Niagara."
   },

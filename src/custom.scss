@@ -102,7 +102,7 @@
   border: 0.125px solid rgba(0,0,0,.075);
 }
 
-.rounded-10, .rounded-10 [data-main-image] {
+.rounded-10, .rounded-10 [data-main-image], .rounded-10 .gatsby-resp-image-background-image, .rounded-10 .gatsby-resp-image-wrapper {
   border-radius: 10px;
 }
 

@@ -133,3 +133,7 @@ main.site-main > .container {
     background-color: #D82E2A;
   }
 }
+
+.form-auth {
+  display: none; /* for honeypots */
+}

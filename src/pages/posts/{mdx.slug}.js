@@ -58,7 +58,7 @@ const BlogPost = ({data, pageContext, children}) => {
                     </Col>
                     <Col lg={4} className="bg-light">
                         <div className="widget p-3">
-                            <h4 className="widget-title"><span>New posts</span></h4>
+                            <h4 className="widget-title"><span>Récents</span></h4>
                             { posts.slice(0,5).map(post => <div className="card border-0 bg-light mt-5">
                                     <Link to={'/posts/' + post.slug}><GatsbyImage
                                         image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat}

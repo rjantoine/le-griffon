@@ -36,7 +36,7 @@ const SiteFooter = () => {
                             <div className="footer-menu">
                                 <ul className="list">
                                     {
-                                        navItems.map(navItem => <li><Link to={navItem.to}>{navItem.title}</Link></li>)
+                                        navItems.map(navItem => <li key={navItem.key}><Link to={navItem.to}>{navItem.title}</Link></li>)
                                     }
                                 </ul>
                             </div>

@@ -76,11 +76,11 @@ const IndexPage = ({data}) => {
                       <Container>
                           <Row className="py-4 align-items-center">
                               <Col lg={7}>
-                                  { posts.slice(0,1).map( featuredPost => <OverlayCard post={featuredPost} /> ) }
+                                  { posts.slice(0,1).map( featuredPost => <OverlayCard key={'home-posts-'+featuredPost.slug} post={featuredPost} /> ) }
                               </Col>
                               <Col lg={5} className="mt-4 m-lg-0">
                                   <div className="my-auto">
-                                      { posts.slice(1,4).map(post => <ListCard post={post} />) }
+                                      { posts.slice(1,4).map(post => <ListCard key={'home-posts-'+post.slug} post={post} />) }
                                   </div>
                               </Col>
                           </Row>
@@ -93,8 +93,8 @@ const IndexPage = ({data}) => {
                                   <h2 className="mt-5"><Link to="/annonces/">Annonces</Link></h2>
                                   <Row>
                                       { data.annonces.nodes.slice(0,3).map( post => <Col sm={4} className="mt-3">
-                                          <div class="card border-0 bg-gray">
-                                              <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                          <div className="card border-0 bg-gray">
+                                              <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <div className="entry-meta-content">
                                                   <div className="entry-date">le {post.frontmatter.date}</div>
@@ -130,7 +130,7 @@ const IndexPage = ({data}) => {
                                   <h2 className="pt-5"><Link to="/activites/">Activités</Link></h2>
                                   <Row>
                                       { data.activites.nodes.slice(0,3).map( post => <Col sm={4} className="mt-3">
-                                          <div class="card border-0">
+                                          <div className="card border-0">
                                               <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <div className="entry-meta-content">

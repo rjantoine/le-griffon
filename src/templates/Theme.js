@@ -51,7 +51,7 @@ function Theme({title, description, image: metaImage, pathname, children}) {
                     )
                 }
             />
-            <StaticImage src="../images/griffon-bg.jpg" layout="fullWidth" aspectRatio={8} transformOptions={{fit: "cover", cropFocus: "center"}} />
+            <StaticImage src="../images/griffon-bg.jpg" alt="Un griffon superposé sur le drapeau franco-Ontarien" layout="fullWidth" aspectRatio={8} transformOptions={{fit: "cover", cropFocus: "center"}} />
             <SiteNavbar />
                 <main className="site-main" style={{backgroundColor: '#ddd'}}>
                     {children}

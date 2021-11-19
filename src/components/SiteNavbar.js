@@ -21,7 +21,7 @@ const SiteNavbar = () => {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav>
-                                { navItems.map(navItem => <Nav.Item>
+                                { navItems.map(navItem => <Nav.Item key={navItem.key}>
                                     <Link to={navItem.to} className="nav-link" activeClassName="active">{navItem.title}</Link>
                                 </Nav.Item> ) }
                             </Nav>

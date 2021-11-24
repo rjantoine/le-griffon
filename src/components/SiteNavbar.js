@@ -18,11 +18,11 @@ const SiteNavbar = () => {
             <Navbar bg="theme-blue" expand="lg" className="main-menu navbar-dark">
                 <Container>
                     <Row className="mx-auto">
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" className="mx-auto" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav>
-                                { navItems.map(navItem => <Nav.Item key={navItem.key}>
-                                    <Link to={navItem.to} className="nav-link" activeClassName="active">{navItem.title}</Link>
+                                { navItems.map(navItem => <Nav.Item key={navItem.key} className="mx-3">
+                                    <Link to={navItem.to} className="nav-link text-center" activeClassName="active">{navItem.title}</Link>
                                 </Nav.Item> ) }
                             </Nav>
                         </Navbar.Collapse>

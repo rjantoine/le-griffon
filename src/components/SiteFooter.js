@@ -27,12 +27,12 @@ const SiteFooter = () => {
             <div className="footer-bottom-area">
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-6 col-md-6">
+                        <div className="col-md-3">
                             <div className="copyright-text">
                                 <p>© Copyright 2021</p>
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-6">
+                        <div className="col-md-9">
                             <div className="footer-menu">
                                 <ul className="list">
                                     {

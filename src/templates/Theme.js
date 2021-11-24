@@ -32,25 +32,38 @@ function Theme({title, description, image: metaImage, pathname, children}) {
                 link={ canonical ? [ { rel: "canonical", href: canonical } ] : [] }
                 meta={
                     [
-                        { name: `description`, content: metaDescription, },
-                        { property: `og:title`, content: title },
-                        { property: `og:description`, content: metaDescription },
-                        { property: `og:type`, content: `website` },
-                        { name: `twitter:title`, content: title },
-                        { name: `twitter:description`, content: metaDescription },
+                        {name: `description`, content: metaDescription,},
+                        {property: `og:title`, content: title},
+                        {property: `og:description`, content: metaDescription},
+                        {property: `og:type`, content: `website`},
+                        {name: `twitter:title`, content: title},
+                        {name: `twitter:description`, content: metaDescription},
                     ]
-                    .concat(
-                        metaImage
-                            ? [
-                                { property: "og:image", content: image },
-                                { property: "og:image:width", content: metaImage.width },
-                                { property: "og:image:height", content: metaImage.height },
-                                { name: "twitter:card", content: "summary_large_image" },
-                            ]
-                            : [ { name: "twitter:card", content: "summary" } ]
-                    )
+                        .concat(
+                            metaImage
+                                ? [
+                                    {property: "og:image", content: image},
+                                    {property: "og:image:width", content: metaImage.width},
+                                    {property: "og:image:height", content: metaImage.height},
+                                    {name: "twitter:card", content: "summary_large_image"},
+                                ]
+                                : [{name: "twitter:card", content: "summary"}]
+                        )
                 }
-            />
+                htmlAttributes = {{lang:'fr-CA'}}
+            >
+                {/*Global site tag (gtag.js) - Google Analytics*/}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-6C33G3RLJJ"></script>
+                <script>
+                    {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+
+                    gtag('config', 'G-6C33G3RLJJ');
+                    `}
+                </script>
+            </Helmet>
             <StaticImage src="../images/griffon-bg.jpg" alt="Un griffon superposé sur le drapeau franco-Ontarien" layout="fullWidth" aspectRatio={8} transformOptions={{fit: "cover", cropFocus: "center"}} />
             <SiteNavbar />
                 <main className="site-main" style={{backgroundColor: '#ddd'}}>

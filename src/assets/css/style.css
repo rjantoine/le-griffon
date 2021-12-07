@@ -4217,7 +4217,7 @@ ul.dropdown-content > .dropdown-trigger:hover > ul.dropdown-content > li:hover >
 
 .post.single-post p {
   text-align: justify;
-  margin-bottom: 35px;
+  margin-bottom: 1.25em;
 }
 
 .post.single-post p:last-child {

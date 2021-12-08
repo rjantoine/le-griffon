@@ -137,3 +137,11 @@ main.site-main > .container {
 .form-auth {
   display: none; /* for honeypots */
 }
+
+.carousel-item .gatsby-resp-image-background-image {
+  background-size: contain!important;
+}
+
+.carousel-item .gatsby-resp-image-image {
+  height: auto!important;
+}

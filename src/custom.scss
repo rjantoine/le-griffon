@@ -145,3 +145,6 @@ main.site-main > .container {
 .carousel-item .gatsby-resp-image-image {
   height: auto!important;
 }
+
+.widget .widget-title span { background-color: inherit; }
+.widget .widget-title:before { bottom: -5px; }

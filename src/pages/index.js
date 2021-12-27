@@ -17,6 +17,7 @@ export const query = graphql`
                 shortExcerpt: excerpt(pruneLength: 40, truncate: false)
                 frontmatter {
                     title
+                    expires(fromNow: true)
                     date(formatString: "D MMMM Y", locale: "fr")
                     featuredImg { childImageSharp {
                         lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
@@ -36,6 +37,7 @@ export const query = graphql`
                 shortExcerpt: excerpt(pruneLength: 40, truncate: false)
                 frontmatter {
                     title
+                    expires(fromNow: true)
                     date(formatString: "D MMMM Y", locale: "fr")
                     featuredImg { childImageSharp {
                         lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
@@ -55,6 +57,7 @@ export const query = graphql`
                 shortExcerpt: excerpt(pruneLength: 40, truncate: false)
                 frontmatter {
                     title
+                    expires(fromNow: true)
                     date(formatString: "D MMMM Y", locale: "fr")
                     featuredImg { childImageSharp {
                         lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
@@ -68,7 +71,7 @@ export const query = graphql`
 
 // markup
 const IndexPage = ({data}) => {
-    let posts = data.posts.nodes
+    let posts = data.posts.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0))
   return (
       <Theme title="Accueil" pathname='/'>
               <main>
@@ -92,7 +95,7 @@ const IndexPage = ({data}) => {
                               <Col>
                                   <h2 className="mt-5"><Link to="/annonces/">Annonces</Link></h2>
                                   <Row>
-                                      { data.annonces.nodes.slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                      { data.annonces.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className="card border-0 bg-gray">
                                               <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
@@ -108,11 +111,11 @@ const IndexPage = ({data}) => {
                                   </Row>
                                   <Row className="mt-5">
                                       <Col>
-                                          { data.annonces.nodes.slice(3,10).map( post => <LargeListCard post={post} />) }
+                                          { data.annonces.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
                                       </Col>
                                   </Row>
                                   {
-                                      data.annonces.nodes.length > 10 &&
+                                      data.annonces.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
                                       <Row className="mt-5">
                                           <Col>
                                               Voir les autres annonces...
@@ -129,7 +132,7 @@ const IndexPage = ({data}) => {
                               <Col>
                                   <h2 className="pt-5"><Link to="/activites/">Activités</Link></h2>
                                   <Row>
-                                      { data.activites.nodes.slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                      { data.activites.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className="card border-0">
                                               <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
@@ -145,11 +148,11 @@ const IndexPage = ({data}) => {
                                   </Row>
                                   <Row className="mt-5">
                                       <Col>
-                                          { data.activites.nodes.slice(3,10).map( post => <LargeListCard post={post} />) }
+                                          { data.activites.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
                                       </Col>
                                   </Row>
                                   {
-                                      data.activites.nodes.length > 10 &&
+                                      data.activites.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
                                       <Row className="mt-5">
                                           <Col>
                                               Voir les autres annonces...

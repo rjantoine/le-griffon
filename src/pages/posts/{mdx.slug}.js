@@ -15,6 +15,7 @@ export const query = graphql`
             shortExcerpt: excerpt(pruneLength: 50, truncate: false)
             frontmatter {
                 title
+                expires(fromNow: true)
                 date(formatString: "D MMMM Y", locale: "fr")
                 featuredImg { childImageSharp {
                     lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
@@ -28,6 +29,7 @@ export const query = graphql`
       slug
       excerpt(pruneLength: 120, truncate: false)
       frontmatter {
+        expires
         title,
         featuredImg { childImageSharp {
             gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 2, transformOptions: {fit: COVER, cropFocus:NORTH}),
@@ -41,7 +43,8 @@ export const query = graphql`
 `
 
 const BlogPost = ({data, pageContext, children}) => {
-    let posts = data.posts.nodes
+    console.log(data, pageContext)
+    let posts = data.posts.nodes.filter(node => node.id !== pageContext.id).filter(node => !(node.frontmatter.expires?.search('ago') > 0))
     return (
         <Theme title={data.mdx.frontmatter.title} pathname={'/posts/'+data.mdx.slug} description={data.mdx.excerpt} image={data.mdx.frontmatter.featuredImg.childImageSharp.metaFormat.images.fallback.src}>
             <Container>

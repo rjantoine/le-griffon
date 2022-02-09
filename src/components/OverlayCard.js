@@ -6,6 +6,7 @@
                 id
                 slug
                 excerpt
+                shortExcerpt
                 frontmatter {
                     title
                     lgCardImg: featuredImg {

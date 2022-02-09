@@ -19,7 +19,6 @@ export const query = graphql`
                 date(formatString: "D MMMM Y", locale: "fr")
                 featuredImg { childImageSharp {
                     lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
-                    smSquareFormat: gatsbyImageData(width:120, height:120, transformOptions: {fit: COVER, cropFocus:NORTH })
                 } }
             }
         }
@@ -32,9 +31,6 @@ export const query = graphql`
         expires
         title,
         featuredImg { childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 2, transformOptions: {fit: COVER, cropFocus:NORTH}),
-            lgSquareFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1, transformOptions: {fit: COVER, cropFocus:NORTH }),
-            smSquareFormat: gatsbyImageData(width:100, height:100, transformOptions: {fit: COVER, cropFocus:NORTH })
             metaFormat: gatsbyImageData(width:800)
         } }
       }

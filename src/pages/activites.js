@@ -19,7 +19,6 @@ export const query = graphql`
                     title
                     date(formatString: "D MMMM Y", locale: "fr")
                     featuredImg { childImageSharp {
-                        lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
                         smSquareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
                     } }
                 }

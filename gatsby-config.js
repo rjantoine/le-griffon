@@ -5,6 +5,7 @@ module.exports = {
     description: "Le Centre communautaire Le Griffon assure la promotion et la diffusion de la culture canadienne d’expression française dans la péninsule du Niagara."
   },
   plugins: [
+    "gatsby-plugin-gatsby-cloud",
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",

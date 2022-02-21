@@ -92,6 +92,10 @@
   margin-bottom: 1.5rem;
 }
 
+.h1, .h2, .h3, .h4, h1, h2, h3, h4 {
+  font-weight: 800;
+}
+
 .shadow-list {
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.15)!important;
   border: 0.125px solid rgba(0,0,0,.075);
@@ -148,3 +152,17 @@ main.site-main > .container {
 
 .widget .widget-title span { background-color: inherit; }
 .widget .widget-title:before { bottom: -5px; }
+
+.single-post.category-activites {
+  *, p { text-align: center; }
+
+  h2, h3, h4, h5, h6 { color: #555 }
+
+  h2 { font-size: 1.5em; padding-top: 1.5rem; }
+
+  h3 { font-size: 1.25em; padding-top: 1.25rem; }
+
+  h4 { font-size: 1.125em; }
+
+  ul { list-style: none; padding: 0; }
+}

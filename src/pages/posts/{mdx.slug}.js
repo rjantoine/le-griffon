@@ -30,6 +30,7 @@ export const query = graphql`
       frontmatter {
         expires
         title,
+        category,
         featuredImg { childImageSharp {
             metaFormat: gatsbyImageData(width:800)
         } }
@@ -46,10 +47,10 @@ const BlogPost = ({data, pageContext, children}) => {
             <Container>
                 <Row>
                     <Col lg={8} className="p-5">
-                        <div className="post single-post single-post-three">
+                        <div className={`post single-post single-post-three category-${data.mdx.frontmatter.category}`}>
                             <div className="single-post-content">
                                 <div className="entry-content">
-                                    <h3 className="entry-title">{data.mdx.frontmatter.title}</h3>
+                                    <h1 className="h3 entry-title">{data.mdx.frontmatter.title}</h1>
                                     <MDXRenderer>{data.mdx.body}</MDXRenderer>
                                 </div>
                             </div>

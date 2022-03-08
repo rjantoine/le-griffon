@@ -8,7 +8,7 @@ const LargeListCard = ({post}) => {
             <div className="entry-thumb">
                 <figure className="thumb-wrap">
                     <Link to={'/posts/'+post.slug}>
-                        <GatsbyImage alt="" image={post.frontmatter.featuredImg.childImageSharp.smSquareFormat} className="card-img rounded-10" />
+                        <GatsbyImage alt="" image={post.frontmatter.featuredImg.childImageSharp.squareFormat} className="card-img rounded-10" />
                     </Link>
                 </figure>
             </div>
@@ -18,11 +18,19 @@ const LargeListCard = ({post}) => {
                         <Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link>
                     </h3>
                 </div>
+                {post.frontmatter.category === 'annonces' &&
                 <div className="entry-meta-content">
                     <div className="entry-date">
                         <span>le {post.frontmatter.date}</span>
                     </div>
                 </div>
+                }
+                {post.frontmatter.category === 'activites' &&
+                <p className="mt-1 mb-0">
+                    { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime}</div>}
+                    { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
+                </p>
+                }
                 <div className="entry-summary">
                     <p className="mb-1">{post.excerpt}</p>
                     <p className="read-more-wrap">

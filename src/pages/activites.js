@@ -17,9 +17,12 @@ export const query = graphql`
                 shortExcerpt: excerpt(pruneLength: 40, truncate: false)
                 frontmatter {
                     title
+                    category
                     date(formatString: "D MMMM Y", locale: "fr")
+                    eventDateTime(formatString: "D MMMM Y [à] H[h]mm", locale: "fr")
+                    lieu
                     featuredImg { childImageSharp {
-                        smSquareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
+                        squareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
                     } }
                 }
             }

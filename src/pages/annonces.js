@@ -17,9 +17,11 @@ export const query = graphql`
                 shortExcerpt: excerpt(pruneLength: 40, truncate: false)
                 frontmatter {
                     title
+                    category
+                    expires(fromNow: true)
                     date(formatString: "D MMMM Y", locale: "fr")
                     featuredImg { childImageSharp {
-                        smSquareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
+                        squareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
                     } }
                 }
             }
@@ -35,7 +37,7 @@ const AnnoncesPage = ({data}) => {
                 <Row className="my-4">
                     <Col>
                         <h1>Annonces</h1>
-                        { data.annonces.nodes.map( post => <LargeListCard post={post} />) }
+                        { data.annonces.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).map( post => <LargeListCard post={post} />) }
                     </Col>
                 </Row>
             </Container>

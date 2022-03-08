@@ -13,55 +13,21 @@ export const query = graphql`
             nodes {
                 id
                 slug
+                longExcerpt: excerpt(pruneLength: 250, truncate: false)
                 excerpt(pruneLength: 120, truncate: false)
                 shortExcerpt: excerpt(pruneLength: 40, truncate: false)
                 frontmatter {
                     title
+                    category
                     expires(fromNow: true)
                     date(formatString: "D MMMM Y", locale: "fr")
+                    eventDateTime(formatString: "D MMMM Y [à] H[h]mm", locale: "fr")
+                    eventFromNow: eventDateTime(fromNow: true)
+                    lieu
                     featuredImg { childImageSharp {
                         lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
                         smSquareFormat: gatsbyImageData(width:120, height:120, transformOptions: {fit: COVER, cropFocus:NORTH })
-                    } }
-                }
-            }
-        }
-        annonces:allMdx(
-            filter: {frontmatter: {category: {eq: "annonces"}}}
-            sort: {fields: frontmatter___date, order: DESC}
-        ) {
-            nodes {
-                id
-                slug
-                excerpt(pruneLength: 250, truncate: false)
-                shortExcerpt: excerpt(pruneLength: 40, truncate: false)
-                frontmatter {
-                    title
-                    expires(fromNow: true)
-                    date(formatString: "D MMMM Y", locale: "fr")
-                    featuredImg { childImageSharp {
-                        lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
-                        smSquareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
-                    } }
-                }
-            }
-        }
-        activites:allMdx(
-            filter: {frontmatter: {category: {eq: "activites"}}}
-            sort: {fields: frontmatter___date, order: DESC}
-        ) {
-            nodes {
-                id
-                slug
-                excerpt(pruneLength: 250, truncate: false)
-                shortExcerpt: excerpt(pruneLength: 40, truncate: false)
-                frontmatter {
-                    title
-                    expires(fromNow: true)
-                    date(formatString: "D MMMM Y", locale: "fr")
-                    featuredImg { childImageSharp {
-                        lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
-                        smSquareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
+                        squareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
                     } }
                 }
             }
@@ -93,15 +59,16 @@ const IndexPage = ({data}) => {
                       <Container className="pb-5">
                           <Row className="py-4">
                               <Col>
-                                  <h2 className="pt-5"><Link to="/activites/">Activités</Link></h2>
+                                  <h2 className="pt-5"><Link to="/activites/">Activités à venir</Link></h2>
                                   <Row>
-                                      { data.activites.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                      { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className="card border-0 bg-gray">
                                               <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
-                                              <div className="entry-meta-content">
-                                                  <div className="entry-date">le {post.frontmatter.date}</div>
-                                              </div>
+                                              <p className="mt-1 mb-0">
+                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime}</div>}
+                                                  { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
+                                              </p>
                                               <p className="mt-3 mb-2">{post.excerpt}</p>
                                               <p className="read-more-wrap">
                                                   <Link to={'/posts/'+post.slug} className="read-more">Lire davantage</Link>
@@ -111,11 +78,11 @@ const IndexPage = ({data}) => {
                                   </Row>
                                   <Row className="mt-5">
                                       <Col>
-                                          { data.activites.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
+                                          { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
                                       </Col>
                                   </Row>
                                   {
-                                      data.activites.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
+                                      data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && (node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
                                       <Row className="mt-5">
                                           <Col>
                                               Voir les autres activités...
@@ -132,7 +99,7 @@ const IndexPage = ({data}) => {
                               <Col>
                                   <h2 className="mt-5"><Link to="/annonces/">Annonces</Link></h2>
                                   <Row>
-                                      { data.annonces.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                      { data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className="card border-0">
                                               <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
@@ -148,11 +115,11 @@ const IndexPage = ({data}) => {
                                   </Row>
                                   <Row className="mt-5">
                                       <Col>
-                                          { data.annonces.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
+                                          { data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
                                       </Col>
                                   </Row>
                                   {
-                                      data.annonces.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
+                                      data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
                                       <Row className="mt-5">
                                           <Col>
                                               Voir les autres annonces...
@@ -163,6 +130,45 @@ const IndexPage = ({data}) => {
                           </Row>
                       </Container>
                   </div>
+                  <div className="bg-gray">
+                      <Container className="pb-5">
+                          <Row className="py-4">
+                              <Col>
+                                  <h2 className="pt-5"><Link to="/activites/">Activités passées</Link></h2>
+                                  <Row>
+                                      { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && node.frontmatter.eventFromNow?.search('ago') > 0 && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                          <div className="card border-0 bg-gray">
+                                              <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
+                                              <p className="mt-1 mb-0">
+                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime}</div>}
+                                                  { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
+                                              </p>
+                                              <p className="mt-3 mb-2">{post.excerpt}</p>
+                                              <p className="read-more-wrap">
+                                                  <Link to={'/posts/'+post.slug} className="read-more">Lire davantage</Link>
+                                              </p>
+                                          </div>
+                                      </Col>) }
+                                  </Row>
+                                  <Row className="mt-5">
+                                      <Col>
+                                          { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && node.frontmatter.eventFromNow?.search('ago') > 0 && !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
+                                      </Col>
+                                  </Row>
+                                  {
+                                      data.posts.nodes.filter(node => node.frontmatter.category === "activites" && node.frontmatter.eventFromNow?.search('ago') > 0 && !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
+                                      <Row className="mt-5">
+                                          <Col>
+                                              Voir les autres activités...
+                                          </Col>
+                                      </Row>
+                                  }
+                              </Col>
+                          </Row>
+                      </Container>
+                  </div>
+
               </main>
       </Theme>
   )

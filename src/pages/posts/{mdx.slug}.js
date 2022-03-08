@@ -15,8 +15,12 @@ export const query = graphql`
             shortExcerpt: excerpt(pruneLength: 50, truncate: false)
             frontmatter {
                 title
+                category
                 expires(fromNow: true)
                 date(formatString: "D MMMM Y", locale: "fr")
+                eventDateTime(formatString: "D MMMM Y [à] H[h]mm", locale: "fr")
+                eventFromNow: eventDateTime(fromNow: true)
+                lieu
                 featuredImg { childImageSharp {
                     lgCardFormat: gatsbyImageData(layout: FULL_WIDTH, aspectRatio: 1.5, transformOptions: {fit: COVER, cropFocus:NORTH })
                 } }
@@ -65,7 +69,11 @@ const BlogPost = ({data, pageContext, children}) => {
                                         className="w-100 card-img rounded-10 hover-zoom"/></Link>
                                     <h3 className="my-3"><Link
                                         to={'/posts/' + post.slug}>{post.frontmatter.title}</Link></h3>
-                                    <p className="mb-0">{post.excerpt}</p>
+                                {post.frontmatter.category === 'activites' && <p className="mt-1 mb-0">
+                                    { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime}</div>}
+                                    { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
+                                </p>}
+                                <p className="mb-0">{post.excerpt}</p>
                                     <p className="read-more-wrap">
                                         <Link to={'/posts/'+post.slug} className="read-more">Lire davantage</Link>
                                     </p>

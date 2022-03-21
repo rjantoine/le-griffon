@@ -38,6 +38,12 @@ export const query = graphql`
 // markup
 const IndexPage = ({data}) => {
     let posts = data.posts.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0))
+    const bgColors = ["bg-white", "bg-gray"]
+    let currBgColor = 0
+    const getBgColor = (toggle=false) => {
+        if(toggle) currBgColor = currBgColor === 0 ? 1 : 0
+        return bgColors[currBgColor]
+    }
   return (
       <Theme title="Accueil" pathname='/'>
               <main>
@@ -55,14 +61,15 @@ const IndexPage = ({data}) => {
                           </Row>
                       </Container>
                   </div>
-                  <div className="bg-gray">
+                  {}
+                  { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && !(node.frontmatter.expires?.search('ago') > 0)).length > 0 && <div className={getBgColor(true)}>
                       <Container className="pb-5">
                           <Row className="py-4">
                               <Col>
                                   <h2 className="pt-5"><Link to="/activites/">Activités à venir</Link></h2>
                                   <Row>
                                       { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
-                                          <div className="card border-0 bg-gray">
+                                          <div className={`card border-0 ${getBgColor()}`}>
                                               <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <p className="mt-1 mb-0">
@@ -92,15 +99,15 @@ const IndexPage = ({data}) => {
                               </Col>
                           </Row>
                       </Container>
-                  </div>
-                  <div className="bg-white">
+                  </div> }
+                  <div className={getBgColor(true)}>
                       <Container>
                           <Row className="py-4">
                               <Col>
                                   <h2 className="mt-5"><Link to="/annonces/">Annonces</Link></h2>
                                   <Row>
                                       { data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
-                                          <div className="card border-0">
+                                          <div className={`card border-0 ${getBgColor()}`}>
                                               <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <div className="entry-meta-content">
@@ -130,14 +137,14 @@ const IndexPage = ({data}) => {
                           </Row>
                       </Container>
                   </div>
-                  <div className="bg-gray">
+                  <div className={getBgColor(true)}>
                       <Container className="pb-5">
                           <Row className="py-4">
                               <Col>
                                   <h2 className="pt-5"><Link to="/activites/">Activités passées</Link></h2>
                                   <Row>
                                       { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && node.frontmatter.eventFromNow?.search('ago') > 0 && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
-                                          <div className="card border-0 bg-gray">
+                                          <div className={`card border-0 ${getBgColor()}`}>
                                               <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <p className="mt-1 mb-0">

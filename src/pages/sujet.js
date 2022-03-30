@@ -28,39 +28,41 @@ const Sujet = () => {
                 <Container>
                     <Row>
                         <Col md={{span:4, offset:2}}>
-                            <h2>Membres</h2>
                             <div className="pl-3">
-                                <h3>Président</h3>
-                                <p className="pl-3">John Eric Rowley</p>
-                                <h3>Secrétaire et trésorier</h3>
+                                <h3 className={'my-2'}>Président</h3>
+                                <p className="pl-3">Marcel St-Onge</p>
+                                <h3 className={'my-2'}>Secrétaire et trésorier</h3>
                                 <p className="pl-3">Jean Chartrand</p>
-                                <h3>Directeurs</h3>
+                                <h3 className={'my-2'}>Directeurs</h3>
                                 <ul>
                                     <li>Robert Renaud</li>
-                                    <li>Marcel St. Onge</li>
-                                    <li>Caroline Roberge</li>
-                                    <li>Julie Rioux</li>
+                                    <li>Roseanne Wendling</li>
                                     <li>Paul Lafontaine</li>
                                     <li>Fété Kampiobi</li>
+                                    <li>Melinda Chartrand</li>
                                 </ul>
                             </div>
                         </Col>
                         <Col md={4}>
-                            <h2>Bénévoles</h2>
+                            <h3 className={'my-2'}>Bénévoles</h3>
                             <ul>
                                 <li>Marc Bovine</li>
                                 <li>Jean-Louis Frado</li>
-                                <li>René Lavoie</li>
-                                <li>Chantal St-Aubin</li>
                                 <li>Mélita Richardson</li>
-                                <li>Melinda Chartrand</li>
+                                <li>Danielle Chartrand</li>
+                                <li>Victoria Ayotte</li>
                                 <li>Sr. Gisèle Pilon</li>
                                 <li>Monique Richardson</li>
                                 <li>Linda Lavoie</li>
                                 <li>Jérôme Veillette</li>
                                 <li>Nancy Desjardins</li>
                                 <li>Philippe Desjardins</li>
+                                <li>Micheline Belleau</li>
                             </ul>
+                            <h3 className={'my-2'}>Webmestre</h3>
+                                <p className="pl-3">Robert Antoine</p>
+                            <h3 className={'my-2'}>Page Facebook</h3>
+                                <p className="pl-3">Cassandra St-Onge</p>
                         </Col>
                     </Row>
                 </Container>
@@ -69,14 +71,14 @@ const Sujet = () => {
                 <Container>
                     <h2>Mots du président</h2>
                     <Col>
-                        <p>Fidèles à leur engagement communautaire, les bénévoles du Griffon ont de nouveau offerts un programme culturel riche et varié aux francophones et francophiles de la région de Niagara grâce à leur collaboration avec leurs nombreux partenaires en 2017. Le travail communautaire de l’équipe de bénévoles du Griffon contribue à la vitalité de l’espace francophone à Niagara par l’implication et la participation des adultes, des pionniers, des adolescents et des enfants aux nombreuses activités culturelles. Il est entendu que le travail des nombreux jeunes dans l’organisation, la réalisation et l’animation de ces rencontres contribuent à la vitalité de notre communauté.</p>
+                        <p>Fidèles à leur engagement communautaire, les bénévoles du Griffon ont de nouveau offerts un programme culturel riche et varié aux francophones et francophiles de la région du Niagara grâce à leur collaboration avec leurs nombreux partenaires de 2020 et 2021. Le travail communautaire de l’équipe de bénévoles du Griffon contribue à la vitalité de l’espace francophone à Niagara par l’implication et la participation des adultes, des pionniers, des adolescents et des enfants aux nombreuses activités culturelles. Il est entendu que le travail des nombreux jeunes dans l’organisation, la réalisation et l’animation de ces rencontres contribuent à la vitalité de notre communauté.</p>
                         <p>Évidemment, l’appui financier de Patrimoine Canada, permet au Griffon de réaliser ses objectifs puisque tous nos projets requièrent des investissements importants, tant du point vu financier que de celui des nombreux bénévoles qui se sont impliqués à la réalisation de ces événements de nature culturelle.</p>
                         <p>Il est évident que le travail communautaire et culturel du Griffon donne des résultats durables puisque la participation des gens est soutenue d’année en année car le Griffon entreprend des initiatives de qualité qui sont en lien avec les intérêts des gens. Nous recevons à chaque année de nombreuses lettres de nos partenaires qui attestent l’importance qu’occupe le Griffon au cœur de la communauté française de la péninsule du Niagara.</p>
                         <p>Le Griffon maintient son engagement à la formation de la jeunesse en développant chez ces derniers les outils et les compétences nécessaires à la réalisation d’activités culturelles. En effet, nos adolescents animent des soirées pour des groupes diverses. Ils jouent de la musique française, préparent des activités culturelles pour les petits, des concerts pour la communauté en plus de productions théâtrales. En fait, ils possèdent d’emblée les compétences nécessaires à l’organisation et à la réalisation de soirées pour tous les organismes de la péninsule. Il s’agit d’un investissement durable et renouvelable qui contribue à l’essor de notre communauté. À chaque année ces jeunes gens manifestent leur fierté d’appartenir à la collectivité franco-ontarienne.</p>
                         <p>Il est également important de souligner le partenariat du Griffon avec SOFIFRAN avec qui de nombreux projets multiculturels ont été réussis favorisant l’intégration des nouveaux arrivants à la communauté franco-ontarienne.</p>
-                        <p>Aussi, nous continuons à travailler avec les agents de programme du secteur des Programmes d’appui aux langues officielles. Les membres du conseil d’administration aimeraient les remercier pour leur contribution envers les activités, le fonctionnement et le financement du Centre communautaire Le Griffon.</p>
+                        <p>Aussi, nous continuons à travailler avec  les agents de programme du secteur des Programmes d’appui aux langues officielles. Les membres du conseil d’administration aimeraient les remercier  pour leur contribution envers les activités, le fonctionnement et le financement du Centre communautaire Le Griffon.</p>
                         <p>Je tiens à remercier les membres du Conseil administratif qui sont des bénévoles de la communauté. J’aimerais souligner la contribution des nombreux partenaires du Griffon avec qui nous travaillons en collaboration pour maintenir vivant et vibrant l’espace francophone dans la péninsule du Niagara. Ensemble, nous sommes fiers de contribuer à la vitalité de la communauté Franco-Ontarienne de Niagara par notre investissement dans la jeunesse, assurant une relève pour les décennies à venir.</p>
-                        <p><em>&mdash; John Eric Rowley</em></p>
+                        <p><em>&mdash; Marcel St-Onge</em></p>
                     </Col>
                 </Container>
             </Row>

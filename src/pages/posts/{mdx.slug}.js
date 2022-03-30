@@ -4,6 +4,7 @@ import {GatsbyImage} from "gatsby-plugin-image";
 import {graphql, Link} from "gatsby";
 import {MDXRenderer} from "gatsby-plugin-mdx";
 import Theme from "../../templates/Theme";
+import mediumZoom from '../../assets/js/myZoom'
 
 export const query = graphql`
   query($id: String) {
@@ -44,8 +45,14 @@ export const query = graphql`
 `
 
 const BlogPost = ({data, pageContext, children}) => {
-    console.log(data, pageContext)
     let posts = data.posts.nodes.filter(node => node.id !== pageContext.id).filter(node => !(node.frontmatter.expires?.search('ago') > 0))
+    React.useEffect(() => {
+        const zoom = mediumZoom('.gatsby-resp-image-image')
+
+        return () => {
+            zoom.detach()
+        }
+    }, [])
     return (
         <Theme title={data.mdx.frontmatter.title} pathname={'/posts/'+data.mdx.slug} description={data.mdx.excerpt} image={data.mdx.frontmatter.featuredImg.childImageSharp.metaFormat.images.fallback.src}>
             <Container>

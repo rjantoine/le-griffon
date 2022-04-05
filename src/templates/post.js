@@ -19,6 +19,16 @@ import {graphql} from "gatsby";
 //   }
 // `
 
+
+export async function config() {
+    // Optionally use GraphQL here
+    return ({ params }) => {
+        return {
+            defer: true,
+        }
+    }
+}
+
 const PurpleBorder = (props) => {
     const {data, pageContext, children} = props;
     console.log(props)

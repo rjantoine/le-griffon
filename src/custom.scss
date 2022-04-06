@@ -146,7 +146,7 @@ main.site-main > .container {
   background-size: contain!important;
 }
 
-.carousel-item .gatsby-resp-image-image {
+.carousel-item .gatsby-resp-image-image, .post .gatsby-resp-image-image {
   height: auto!important;
 }
 

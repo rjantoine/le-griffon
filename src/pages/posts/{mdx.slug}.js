@@ -6,6 +6,15 @@ import {MDXRenderer} from "gatsby-plugin-mdx";
 import Theme from "../../templates/Theme";
 import mediumZoom from '../../assets/js/myZoom'
 
+export async function config() {
+    // Optionally use GraphQL here
+    return ({ params }) => {
+        return {
+            defer: true,
+        }
+    }
+}
+
 export const query = graphql`
   query($id: String) {
       posts:allMdx(sort: {fields: frontmatter___date, order: DESC}) {

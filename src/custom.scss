@@ -209,3 +209,9 @@ main.site-main > .container {
   cursor: zoom-out;
   will-change: transform;
 }
+
+.post a {
+  color:#007bff;
+  text-decoration:inherit;
+  background-color:transparent
+}

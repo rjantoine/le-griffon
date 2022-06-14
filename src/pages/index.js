@@ -6,6 +6,7 @@ import ListCard from "../components/ListCard";
 import Theme from "../templates/Theme";
 import LargeListCard from "../components/LargeListCard";
 import {GatsbyImage} from "gatsby-plugin-image";
+import Moment from 'react-moment';
 
 export const query = graphql`
     query BlogPosts {
@@ -20,8 +21,8 @@ export const query = graphql`
                     title
                     category
                     expires(fromNow: true)
-                    date(formatString: "D MMMM Y", locale: "fr")
-                    eventDateTime(formatString: "D MMMM Y [à] H[h]mm", locale: "fr")
+                    date
+                    eventDateTime
                     eventFromNow: eventDateTime(fromNow: true)
                     lieu
                     featuredImg { childImageSharp {
@@ -73,7 +74,7 @@ const IndexPage = ({data}) => {
                                               <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <p className="mt-1 mb-0">
-                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime}</div>}
+                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le <Moment format="D MMMM Y [à] H[h]mm" locale="fr" date={post.frontmatter.eventDateTime} /></div>}
                                                   { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
                                               </p>
                                               <p className="mt-3 mb-2">{post.excerpt}</p>
@@ -111,7 +112,7 @@ const IndexPage = ({data}) => {
                                               <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <div className="entry-meta-content">
-                                                  <div className="entry-date">le {post.frontmatter.date}</div>
+                                                  <div className="entry-date">le <Moment format="D MMMM Y" locale="fr" date={post.frontmatter.date} /></div>
                                               </div>
                                               <div className="entry-summary py-3">{post.excerpt}</div>
                                               <p className="read-more-wrap">
@@ -148,7 +149,7 @@ const IndexPage = ({data}) => {
                                               <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <p className="mt-1 mb-0">
-                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime}</div>}
+                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le <Moment format="D MMMM Y [à] H[h]mm" locale="fr" date={post.frontmatter.eventDateTime} /></div>}
                                                   { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
                                               </p>
                                               <p className="mt-3 mb-2">{post.excerpt}</p>

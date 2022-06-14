@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from "gatsby";
 import {GatsbyImage} from "gatsby-plugin-image";
+import Moment from 'react-moment';
 
 const LargeListCard = ({post}) => {
     return (
@@ -21,13 +22,13 @@ const LargeListCard = ({post}) => {
                 {post.frontmatter.category === 'annonces' &&
                 <div className="entry-meta-content">
                     <div className="entry-date">
-                        <span>le {post.frontmatter.date}</span>
+                        <span>le <Moment format="D MMMM Y" locale="fr" date={post.frontmatter.date} /></span>
                     </div>
                 </div>
                 }
                 {post.frontmatter.category === 'activites' &&
                 <p className="mt-1 mb-0">
-                    { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime}</div>}
+                    { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le <Moment format="D MMMM Y [à] H[h]mm" locale="fr" date={post.frontmatter.eventDateTime} /></div>}
                     { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
                 </p>
                 }

@@ -19,7 +19,7 @@ export const query = graphql`
                     title
                     category
                     expires(fromNow: true)
-                    date(formatString: "D MMMM Y", locale: "fr")
+                    date
                     featuredImg { childImageSharp {
                         squareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
                     } }

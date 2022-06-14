@@ -18,8 +18,8 @@ export const query = graphql`
                 frontmatter {
                     title
                     category
-                    date(formatString: "D MMMM Y", locale: "fr")
-                    eventDateTime(formatString: "D MMMM Y [à] H[h]mm", locale: "fr")
+                    date
+                    eventDateTime
                     lieu
                     featuredImg { childImageSharp {
                         squareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })

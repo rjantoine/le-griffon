@@ -18,8 +18,8 @@ export const query = graphql`
                 title
                 category
                 expires(fromNow: true)
-                date(formatString: "D MMMM Y", locale: "fr")
-                eventDateTime(formatString: "D MMMM Y [à] H[h]mm", locale: "fr")
+                date
+                eventDateTime
                 eventFromNow: eventDateTime(fromNow: true)
                 lieu
                 featuredImg { childImageSharp {
@@ -77,7 +77,7 @@ const BlogPost = ({data, pageContext, children}) => {
                                     <h3 className="my-3"><Link
                                         to={'/posts/' + post.slug}>{post.frontmatter.title}</Link></h3>
                                 {post.frontmatter.category === 'activites' && <p className="mt-1 mb-0">
-                                    { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime}</div>}
+                                    { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le <Moment format="D MMMM Y [à] H[h]mm" locale="fr" date={post.frontmatter.eventDateTime} /></div>}
                                     { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
                                 </p>}
                                 <p className="mb-0">{post.excerpt}</p>

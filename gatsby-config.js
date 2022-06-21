@@ -73,5 +73,15 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Nanum Gothic`,
+          `source sans pro\:400,700,800` // you can also specify font weights and styles
+        ],
+        display: 'swap'
+      }
+    }
   ],
 };

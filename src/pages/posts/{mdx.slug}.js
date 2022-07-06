@@ -5,6 +5,7 @@ import {graphql, Link} from "gatsby";
 import {MDXRenderer} from "gatsby-plugin-mdx";
 import Theme from "../../templates/Theme";
 import mediumZoom from '../../assets/js/myZoom'
+import Moment from 'react-moment'
 
 export const query = graphql`
   query($id: String) {

@@ -93,7 +93,7 @@ const IndexPage = ({data}) => {
                                       data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && (node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
                                       <Row className="mt-5">
                                           <Col>
-                                              Voir les autres activités...
+                                              <Link to="/activites/">Voir les autres activités...</Link>
                                           </Col>
                                       </Row>
                                   }
@@ -130,7 +130,7 @@ const IndexPage = ({data}) => {
                                       data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
                                       <Row className="mt-5">
                                           <Col>
-                                              Voir les autres annonces...
+                                              <Link to="/annonces/">Voir les autres annonces...</Link>
                                           </Col>
                                       </Row>
                                   }

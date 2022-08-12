@@ -30,7 +30,7 @@ const SiteNavbar = () => {
                 </Container>
             </Navbar>
             <div className="alert alert-success text-center font-weight-bold" role="alert">
-                <Link to='/posts/2022/08/jeux-du-canada'>Passez voir les photos des Jeux du Canada</Link>
+                <Link to='/jeux'>Passez voir les photos des Jeux du Canada</Link>
             </div>
         </>
     )

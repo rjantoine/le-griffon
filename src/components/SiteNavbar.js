@@ -29,7 +29,7 @@ const SiteNavbar = () => {
                     </Row>
                 </Container>
             </Navbar>
-            <div className="alert alert-success text-center font-weight-bold" role="alert">
+            <div className="alert alert-success text-center font-weight-bold my-0" role="alert">
                 <Link to='/jeux'>Passez voir les photos des Jeux du Canada</Link>
             </div>
         </>

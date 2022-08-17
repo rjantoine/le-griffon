@@ -7,14 +7,14 @@ import navItems from "./navItems";
 const SiteNavbar = () => {
     return (
         <>
-            <Row className="bg-theme-blue py-3">
-                <Col className="text-center">
+            <div className="bg-theme-blue py-3">
+                <div className="text-center">
                     <Link to="/">
                         <StaticImage src="../images/griffon-logo.png" alt="LeGriffon Logo" height={50} className="align-middle mr-2" />
                         <span style={{color:'white'}}>Centre communautaire Le Griffon</span>
                     </Link>
-                </Col>
-            </Row>
+                </div>
+            </div>
             <Navbar bg="theme-blue" expand="lg" className="main-menu navbar-dark">
                 <Container>
                     <Row className="mx-auto">

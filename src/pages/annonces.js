@@ -20,6 +20,9 @@ export const query = graphql`
                     category
                     expires(fromNow: true)
                     date
+                    formattedDate: date(locale: "fr", formatString: "D MMMM Y")
+                    formattedEventDate: eventDateTime(locale: "fr", formatString: "D MMMM Y")
+                    formattedEventDateTime: eventDateTime(locale: "fr", formatString: "D MMMM Y [à] H[h]mm")
                     featuredImg { childImageSharp {
                         squareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
                     } }
@@ -33,11 +36,11 @@ export const query = graphql`
 const AnnoncesPage = ({data}) => {
     return (
         <Theme title="Annonces" pathname='/annonces'>
-            <Container>
-                <Row className="my-4">
+            <Container className="p-5">
+                <Row>
                     <Col>
                         <h1>Annonces</h1>
-                        { data.annonces.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).map( post => <LargeListCard post={post} />) }
+                        { data.annonces.nodes.filter(node => (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).map( post => <LargeListCard post={post} />) }
                     </Col>
                 </Row>
             </Container>

@@ -5,7 +5,6 @@ import {graphql, Link} from "gatsby";
 import {MDXRenderer} from "gatsby-plugin-mdx";
 import Theme from "../../templates/Theme";
 import mediumZoom from '../../assets/js/myZoom'
-import Moment from 'react-moment'
 
 export const query = graphql`
   query($id: String) {
@@ -18,8 +17,11 @@ export const query = graphql`
             frontmatter {
                 title
                 category
-                expires(fromNow: true)
+                expires
                 date
+                formattedDate: date(locale: "fr", formatString: "D MMMM Y")
+                formattedEventDate: eventDateTime(locale: "fr", formatString: "D MMMM Y")
+                formattedEventDateTime: eventDateTime(locale: "fr", formatString: "D MMMM Y [à] H[h]mm")
                 eventDateTime
                 eventFromNow: eventDateTime(fromNow: true)
                 lieu
@@ -35,8 +37,9 @@ export const query = graphql`
       excerpt(pruneLength: 120, truncate: false)
       frontmatter {
         expires
-        title,
-        category,
+        formattedDate: date(locale: "fr", formatString: "D MMMM Y")
+        title
+        category
         featuredImg { childImageSharp {
             metaFormat: gatsbyImageData(width:800)
         } }
@@ -46,7 +49,8 @@ export const query = graphql`
 `
 
 const BlogPost = ({data, pageContext, children}) => {
-    let posts = data.posts.nodes.filter(node => node.id !== pageContext.id).filter(node => !(node.frontmatter.expires?.search('ago') > 0))
+    // let posts = data.posts.nodes.filter(node => node.id !== pageContext.id).filter(node => !(node.frontmatter.expires?.search('ago') > 0))
+    let posts = data.posts.nodes.filter(node => node.id !== pageContext.id).filter(node => !node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())
     React.useEffect(() => {
         const zoom = mediumZoom('.gatsby-resp-image-image')
 
@@ -63,6 +67,7 @@ const BlogPost = ({data, pageContext, children}) => {
                             <div className="single-post-content">
                                 <div className="entry-content">
                                     <h1 className="h3 entry-title">{data.mdx.frontmatter.title}</h1>
+                                    <div><em>le {data.mdx.frontmatter.formattedDate}</em></div>
                                     <MDXRenderer>{data.mdx.body}</MDXRenderer>
                                 </div>
                             </div>
@@ -78,7 +83,7 @@ const BlogPost = ({data, pageContext, children}) => {
                                     <h3 className="my-3"><Link
                                         to={'/posts/' + post.slug}>{post.frontmatter.title}</Link></h3>
                                 {post.frontmatter.category === 'activites' && <p className="mt-1 mb-0">
-                                    { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le <Moment format="D MMMM Y [à] H[h]mm" locale="fr" date={post.frontmatter.eventDateTime} /></div>}
+                                    { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {post.frontmatter.eventDateTime.includes("T00:00:00.000") ? post.frontmatter.formattedEventDate : post.frontmatter.formattedEventDateTime}</div>}
                                     { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
                                 </p>}
                                 <p className="mb-0">{post.excerpt}</p>

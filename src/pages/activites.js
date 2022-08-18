@@ -19,6 +19,9 @@ export const query = graphql`
                     title
                     category
                     date
+                    formattedDate: date(locale: "fr", formatString: "D MMMM Y")
+                    formattedEventDate: eventDateTime(locale: "fr", formatString: "D MMMM Y")
+                    formattedEventDateTime: eventDateTime(locale: "fr", formatString: "D MMMM Y [à] H[h]mm")
                     eventDateTime
                     lieu
                     featuredImg { childImageSharp {
@@ -34,8 +37,8 @@ export const query = graphql`
 const ActivitesPage = ({data}) => {
     return (
         <Theme title="Activités" pathname='/activites'>
-            <Container>
-                <Row className="my-4">
+            <Container className="p-5">
+                <Row>
                     <Col>
                         <h1>Activités</h1>
                         { data.activites.nodes.map( post => <LargeListCard post={post} />) }

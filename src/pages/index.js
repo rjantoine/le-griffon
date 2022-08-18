@@ -6,7 +6,6 @@ import ListCard from "../components/ListCard";
 import Theme from "../templates/Theme";
 import LargeListCard from "../components/LargeListCard";
 import {GatsbyImage} from "gatsby-plugin-image";
-import Moment from 'react-moment';
 
 export const query = graphql`
     query BlogPosts {
@@ -18,11 +17,15 @@ export const query = graphql`
                 excerpt(pruneLength: 120, truncate: false)
                 shortExcerpt: excerpt(pruneLength: 40, truncate: false)
                 frontmatter {
+                    shortTitle
                     title
                     category
                     expires(fromNow: true)
                     date
+                    formattedDate: date(locale: "fr", formatString: "D MMMM Y")
                     eventDateTime
+                    formattedEventDate: eventDateTime(locale: "fr", formatString: "D MMMM Y")
+                    formattedEventDateTime: eventDateTime(locale: "fr", formatString: "D MMMM Y [à] H[h]mm")
                     eventFromNow: eventDateTime(fromNow: true)
                     lieu
                     featuredImg { childImageSharp {
@@ -38,7 +41,7 @@ export const query = graphql`
 
 // markup
 const IndexPage = ({data}) => {
-    let posts = data.posts.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0))
+    let posts = data.posts.nodes.filter(node => !node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())
     const bgColors = ["bg-white", "bg-gray"]
     let currBgColor = 0
     const getBgColor = (toggle=false) => {
@@ -63,18 +66,20 @@ const IndexPage = ({data}) => {
                       </Container>
                   </div>
                   {}
-                  { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && !(node.frontmatter.expires?.search('ago') > 0)).length > 0 && <div className={getBgColor(true)}>
-                      <Container className="pb-5">
+                  { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) > Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).length > 0 && <div className={getBgColor(true)}>
+                  <Container className="pb-5">
                           <Row className="py-4">
                               <Col>
                                   <h2 className="pt-5"><Link to="/activites/">Activités à venir</Link></h2>
                                   <Row>
-                                      { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                      { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) > Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className={`card border-0 ${getBgColor()}`}>
                                               <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
-                                              <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
+                                              <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.shortTitle || post.frontmatter.title}</Link></h3>
                                               <p className="mt-1 mb-0">
-                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le <Moment format="D MMMM Y [à] H[h]mm" locale="fr" date={post.frontmatter.eventDateTime} /></div>}
+                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {
+                                                      post.frontmatter.eventDateTime.includes("T00:00:00.000") ? post.frontmatter.formattedEventDate : post.frontmatter.formattedEventDateTime
+                                                  }</div>}
                                                   { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
                                               </p>
                                               <p className="mt-3 mb-2">{post.excerpt}</p>
@@ -86,16 +91,14 @@ const IndexPage = ({data}) => {
                                   </Row>
                                   <Row className="mt-5">
                                       <Col>
-                                          { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
+                                          { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) > Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(3,10).map( post => <LargeListCard post={post} />) }
                                       </Col>
                                   </Row>
                                   {
-                                      data.posts.nodes.filter(node => node.frontmatter.category === "activites" && !(node.frontmatter.eventFromNow?.search('ago') > 0) && (node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
-                                      <Row className="mt-5">
-                                          <Col>
-                                              <Link to="/activites/">Voir les autres activités...</Link>
-                                          </Col>
-                                      </Row>
+                                      data.posts.nodes.filter(node => node.frontmatter.category === "activites" && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) > Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).length > 10 &&
+                                      <p className="read-more-wrap">
+                                          <Link to="/activites/" className="read-more">Voir les autres activités...</Link>
+                                      </p>
                                   }
                               </Col>
                           </Row>
@@ -107,12 +110,12 @@ const IndexPage = ({data}) => {
                               <Col>
                                   <h2 className="mt-5"><Link to="/annonces/">Annonces</Link></h2>
                                   <Row>
-                                      { data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                      { data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className={`card border-0 ${getBgColor()}`}>
                                               <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
-                                              <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
+                                              <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.shortTitle || post.frontmatter.title}</Link></h3>
                                               <div className="entry-meta-content">
-                                                  <div className="entry-date">le <Moment format="D MMMM Y" locale="fr" date={post.frontmatter.date} /></div>
+                                                  <div className="entry-date">le {post.frontmatter.formattedDate}</div>
                                               </div>
                                               <div className="entry-summary py-3">{post.excerpt}</div>
                                               <p className="read-more-wrap">
@@ -123,16 +126,14 @@ const IndexPage = ({data}) => {
                                   </Row>
                                   <Row className="mt-5">
                                       <Col>
-                                          { data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
+                                          { data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(3,10).map( post => <LargeListCard post={post} />) }
                                       </Col>
                                   </Row>
                                   {
-                                      data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
-                                      <Row className="mt-5">
-                                          <Col>
-                                              <Link to="/annonces/">Voir les autres annonces...</Link>
-                                          </Col>
-                                      </Row>
+                                      data.posts.nodes.filter(node => node.frontmatter.category === "annonces" && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).length > 10 &&
+                                      <p className="read-more-wrap mt-5">
+                                          <Link to="/annonces/" className="read-more">Voir les autres annonces...</Link>
+                                      </p>
                                   }
                               </Col>
                           </Row>
@@ -144,12 +145,14 @@ const IndexPage = ({data}) => {
                               <Col>
                                   <h2 className="pt-5"><Link to="/activites/">Activités passées</Link></h2>
                                   <Row>
-                                      { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && node.frontmatter.eventFromNow?.search('ago') > 0 && !(node.frontmatter.expires?.search('ago') > 0)).slice(0,3).map( post => <Col sm={4} className="mt-3">
+                                      { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) < Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className={`card border-0 ${getBgColor()}`}>
                                               <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <p className="mt-1 mb-0">
-                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le <Moment format="D MMMM Y [à] H[h]mm" locale="fr" date={post.frontmatter.eventDateTime} /></div>}
+                                                  { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {
+                                                      post.frontmatter.eventDateTime.includes("T00:00:00.000") ? post.frontmatter.formattedEventDate : post.frontmatter.formattedEventDateTime
+                                                  }</div>}
                                                   { post.frontmatter.lieu && <div><strong>Lieu: </strong>{post.frontmatter.lieu}</div>}
                                               </p>
                                               <p className="mt-3 mb-2">{post.excerpt}</p>
@@ -161,16 +164,14 @@ const IndexPage = ({data}) => {
                                   </Row>
                                   <Row className="mt-5">
                                       <Col>
-                                          { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && node.frontmatter.eventFromNow?.search('ago') > 0 && !(node.frontmatter.expires?.search('ago') > 0)).slice(3,10).map( post => <LargeListCard post={post} />) }
+                                          { data.posts.nodes.filter(node => node.frontmatter.category === "activites" && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) < Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(3,10).map( post => <LargeListCard post={post} />) }
                                       </Col>
                                   </Row>
                                   {
-                                      data.posts.nodes.filter(node => node.frontmatter.category === "activites" && node.frontmatter.eventFromNow?.search('ago') > 0 && !(node.frontmatter.expires?.search('ago') > 0)).length > 10 &&
-                                      <Row className="mt-5">
-                                          <Col>
-                                              Voir les autres activités...
-                                          </Col>
-                                      </Row>
+                                      data.posts.nodes.filter(node => node.frontmatter.category === "activites" && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) < Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).length > 10 &&
+                                      <p className="read-more-wrap mt-5">
+                                          <Link to="/activites/" className="read-more">Voir les autres activités...</Link>
+                                      </p>
                                   }
                               </Col>
                           </Row>

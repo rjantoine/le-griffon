@@ -12,7 +12,7 @@ const ListCard = ({post}) => (
         <div className="content-entry-wrap">
             <div className="entry-content" style={{maxHeight:"100px"}}>
                 <div className="py-2 pr-3" >
-                    <h3 className="entry-title mb-1">{post.frontmatter.title}</h3>
+                    <h3 className="entry-title mb-1">{post.frontmatter.shortTitle || post.frontmatter.title}</h3>
                     <p>{post.shortExcerpt}</p>
                 </div>
             </div>

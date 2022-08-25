@@ -70,6 +70,11 @@
   transition: all 0.3s ease 0s;
   width: 100%;
 }
+
+.card a:hover {
+  color: #100da6;
+}
+
 .card:hover .hover-zoom.gatsby-image-wrapper [data-main-image]{
   transform: scale(1.1);
 }
@@ -131,10 +136,11 @@ main.site-main > .container {
   background: white;
 }
 
-.bg-light .read-more-wrap > .read-more, .bg-gray .read-more-wrap > .read-more {
-  background-color: white;
+.read-more-wrap > .read-more {
+  background-color: #aaa;
+  color: white;
   &:hover {
-    background-color: #D82E2A;
+    background-color: #100da6;
   }
 }
 
@@ -210,8 +216,6 @@ main.site-main > .container {
   will-change: transform;
 }
 
-.post a {
-  color:#007bff;
-  text-decoration:inherit;
-  background-color:transparent
+.entry-title:hover a {
+  color: #100da6;
 }

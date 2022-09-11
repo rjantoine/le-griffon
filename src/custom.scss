@@ -219,3 +219,9 @@ main.site-main > .container {
 .entry-title:hover a {
   color: #100da6;
 }
+
+.post a {
+  text-decoration: underline;
+  color: #005cbf;
+  &:hover { color: #100da6; }
+}

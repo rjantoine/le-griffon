@@ -7,7 +7,7 @@ import LargeListCard from "../components/LargeListCard";
 export const query = graphql`
     query AnnoncesPosts {
         annonces:allMdx(
-            filter: {frontmatter: {category: {eq: "annonces"}}}
+            filter: {frontmatter: {categories: {in: "annonces"}}}
             sort: {fields: frontmatter___date, order: DESC}
         ) {
             nodes {

@@ -7,7 +7,7 @@ import LargeListCard from "../components/LargeListCard";
 export const query = graphql`
     query JeuxPosts {
         jeux:allMdx(
-            filter: {frontmatter: {category: {eq: "jeux"}}}
+            filter: {frontmatter: {categories: {in: "pavillon"}}}
             sort: {fields: frontmatter___date, order: DESC}
         ) {
             nodes {
@@ -20,6 +20,7 @@ export const query = graphql`
                     category
                     expires(fromNow: true)
                     date
+                    formattedDate: date(locale: "fr", formatString: "D MMMM Y")
                     featuredImg { childImageSharp {
                         squareFormat: gatsbyImageData(width:270, height:220, transformOptions: {fit: COVER, cropFocus:NORTH })
                     } }
@@ -33,8 +34,8 @@ export const query = graphql`
 const JeuxPage = ({data}) => {
     return (
         <Theme title="Jeux du Canada" pathname='/jeux'>
-            <Container>
-                <Row className="my-4">
+            <Container className="p-5">
+                <Row>
                     <Col>
                         <h1>Les Jeux du Canada</h1>
                         { data.jeux.nodes.filter(node => !(node.frontmatter.expires?.search('ago') > 0)).map( post => <LargeListCard post={post} />) }

@@ -17,6 +17,7 @@ export const query = graphql`
             frontmatter {
                 title
                 category
+                categories
                 expires
                 date
                 formattedDate: date(locale: "fr", formatString: "D MMMM Y")

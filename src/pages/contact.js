@@ -41,9 +41,14 @@ const ContactPage = () => {
     return <Theme title="Nous joindre" pathname='/contact' description="Remplissez le formulaire suivant pour communiquer avec Le Griffon">
         <Container>
             <Row>
-                <Col className="my-5">
-                    <h1 className="mx-5">Nous joindre</h1>
+                <Col className="mx-5 mt-5">
+                    <h1>Nous joindre</h1>
                     <div id="alerts">{ alerts }</div>
+                    <p><strong>Par courriel: </strong><a href="mailto:contact@legriffon.org">contact@legriffon.org</a></p>
+                </Col>
+            </Row>
+            <Row>
+                <Col className="my-5">
                     <Form className="mx-5" onSubmit={onSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label>Votre nom</Form.Label>

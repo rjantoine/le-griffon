@@ -3,7 +3,7 @@ import {StaticImage} from "gatsby-plugin-image";
 import SiteNavbar from "../components/SiteNavbar";
 import SiteFooter from "../components/SiteFooter";
 import {Helmet} from "react-helmet";
-import {graphql, useStaticQuery} from "gatsby";
+import {graphql, Script, useStaticQuery} from "gatsby";
 
 function Theme({title, description, image: metaImage, pathname, children}) {
     const { site } = useStaticQuery(
@@ -53,8 +53,8 @@ function Theme({title, description, image: metaImage, pathname, children}) {
                 htmlAttributes = {{lang:'fr-CA'}}
             >
                 {/*Global site tag (gtag.js) - Google Analytics*/}
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-6C33G3RLJJ"></script>
-                <script>
+                <Script async src="https://www.googletagmanager.com/gtag/js?id=G-6C33G3RLJJ"></Script>
+                <Script>
                     {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
@@ -62,7 +62,7 @@ function Theme({title, description, image: metaImage, pathname, children}) {
 
                     gtag('config', 'G-6C33G3RLJJ');
                     `}
-                </script>
+                </Script>
             </Helmet>
             <StaticImage src="../images/griffon-bg.jpg" alt="Un griffon superposé sur le drapeau franco-Ontarien" layout="fullWidth" aspectRatio={8} transformOptions={{fit: "cover", cropFocus: "center"}} />
             <SiteNavbar />

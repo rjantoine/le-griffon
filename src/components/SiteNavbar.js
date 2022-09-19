@@ -1,4 +1,4 @@
-import {Col, Container, Nav, Navbar, Row} from "react-bootstrap";
+import {Container, Nav, Navbar, Row} from "react-bootstrap";
 import * as React from "react";
 import {StaticImage} from "gatsby-plugin-image";
 import {Link} from "gatsby";

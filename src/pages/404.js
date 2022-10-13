@@ -2,10 +2,8 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
-export default props => {
-    return (
-        <StaticQuery
-            query={graphql`
+const ErrorPage = props => <StaticQuery
+    query={graphql`
         query {
           site {
             siteMetadata {
@@ -13,17 +11,17 @@ export default props => {
             }
           }
         }
-      `}
-            render={data => {
-                return (
-                    <Helmet>
-                        <meta
-                            http-equiv="refresh"
-                            content={`0;url=${data.site.siteMetadata.siteUrl}`}
-                        />
-                    </Helmet>
-                );
-            }}
-        />
-    )
-}
+    `}
+    render={data => {
+        return (
+            <Helmet>
+                <meta
+                    http-equiv="refresh"
+                    content={`0;url=${data.site.siteMetadata.siteUrl}`}
+                />
+            </Helmet>
+        );
+    }}
+/>
+
+export default ErrorPage

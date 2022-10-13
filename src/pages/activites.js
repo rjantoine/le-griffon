@@ -14,7 +14,6 @@ export const query = graphql`
                 id
                 slug
                 excerpt(pruneLength: 250, truncate: false)
-                shortExcerpt: excerpt(pruneLength: 40, truncate: false)
                 frontmatter {
                     title
                     category

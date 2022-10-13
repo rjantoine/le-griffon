@@ -8,7 +8,7 @@ import mediumZoom from '../../assets/js/myZoom'
 
 export const query = graphql`
   query($id: String) {
-      posts:allMdx(sort: {fields: frontmatter___date, order: DESC}) {
+      posts:allMdx(sort: {fields: frontmatter___date, order: DESC}, limit: 5) {
         nodes {
             id
             slug

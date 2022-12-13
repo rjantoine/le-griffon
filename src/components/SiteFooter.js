@@ -29,7 +29,7 @@ const SiteFooter = () => {
                     <div className="row">
                         <div className="col-md-3">
                             <div className="copyright-text">
-                                <p>© Copyright 2021</p>
+                                <p>© Copyright {new Date().getFullYear()}</p>
                             </div>
                         </div>
                         <div className="col-md-9">

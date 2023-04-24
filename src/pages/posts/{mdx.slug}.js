@@ -78,7 +78,7 @@ const BlogPost = ({data, pageContext, children}) => {
                             <h4 className="widget-title"><span>Récents</span></h4>
                             { posts.slice(0,5).map(post => <div className="card border-0 bg-light mt-5">
                                     <Link to={'/posts/' + post.slug}><GatsbyImage
-                                        image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat}
+                                        image={post.frontmatter?.featuredImg?.childImageSharp?.lgCardFormat}
                                         className="w-100 card-img rounded-10 hover-zoom"/></Link>
                                     <h3 className="my-3"><Link
                                         to={'/posts/' + post.slug}>{post.frontmatter.title}</Link></h3>

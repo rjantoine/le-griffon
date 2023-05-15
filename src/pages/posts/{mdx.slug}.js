@@ -67,7 +67,7 @@ const BlogPost = ({data, pageContext, children}) => {
                             <div className="single-post-content">
                                 <div className="entry-content">
                                     <h1 className="h3 entry-title">{data.mdx.frontmatter.title}</h1>
-                                    <div className="mb-4"><em>le {data.mdx.frontmatter.formattedDate}</em></div>
+                                    {data.mdx.frontmatter.category !== "activites" && <div className="mb-4"><em>le {data.mdx.frontmatter.formattedDate}</em></div>}
                                     <MDXRenderer>{data.mdx.body}</MDXRenderer>
                                 </div>
                             </div>

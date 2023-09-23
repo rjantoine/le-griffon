@@ -74,7 +74,9 @@ const IndexPage = ({data}) => {
                                   <Row>
                                       { data.posts.nodes.filter(node => node.frontmatter.categories?.includes("activites") && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) > Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className={`card border-0 ${getBgColor()}`}>
-                                              <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              {
+                                                  post?.frontmatter?.featuredImg?.childImageSharp?.lgCardFormat && <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              }
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.shortTitle || post.frontmatter.title}</Link></h3>
                                               <p className="mt-1 mb-0">
                                                   { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {
@@ -112,7 +114,10 @@ const IndexPage = ({data}) => {
                                   <Row>
                                       { data.posts.nodes.filter(node => node.frontmatter.categories?.includes("annonces") && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className={`card border-0 ${getBgColor()}`}>
-                                              <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              {
+                                                  post?.frontmatter?.featuredImg?.childImageSharp?.lgCardFormat
+                                                  && <Link to={'/posts/'+post.slug}><GatsbyImage image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              }
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.shortTitle || post.frontmatter.title}</Link></h3>
                                               <div className="entry-meta-content">
                                                   <div className="entry-date">le {post.frontmatter.formattedDate}</div>
@@ -147,7 +152,10 @@ const IndexPage = ({data}) => {
                                   <Row>
                                       { data.posts.nodes.filter(node => node.frontmatter.categories?.includes("activites") && (!node.frontmatter.eventDateTime || new Date(node.frontmatter.eventDateTime) < Date.now()) && (!node.frontmatter.expires || new Date(node.frontmatter.expires) > Date.now())).slice(0,3).map( post => <Col sm={4} className="mt-3">
                                           <div className={`card border-0 ${getBgColor()}`}>
-                                              <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              {
+                                                  post?.frontmatter?.featuredImg?.childImageSharp?.lgCardFormat
+                                                  && <Link to={'/posts/'+post.slug}><GatsbyImage alt={post.frontmatter.title} image={post.frontmatter.featuredImg.childImageSharp.lgCardFormat} className="w-100 card-img rounded-10 hover-zoom" /></Link>
+                                              }
                                               <h3 className="mt-4 mb-2"><Link to={'/posts/'+post.slug}>{post.frontmatter.title}</Link></h3>
                                               <p className="mt-1 mb-0">
                                                   { post.frontmatter.eventDateTime && <div><strong>Date: </strong>le {

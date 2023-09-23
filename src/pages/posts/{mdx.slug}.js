@@ -59,7 +59,7 @@ const BlogPost = ({data, pageContext, children}) => {
         }
     }, [])
     return (
-        <Theme title={data.mdx.frontmatter.title} pathname={'/posts/'+data.mdx.slug} description={data.mdx.excerpt} image={data.mdx.frontmatter.featuredImg.childImageSharp.metaFormat.images.fallback.src}>
+        <Theme title={data.mdx.frontmatter.title} pathname={'/posts/'+data.mdx.slug} description={data.mdx.excerpt} image={data?.mdx?.frontmatter?.featuredImg?.childImageSharp?.metaFormat?.images?.fallback?.src}>
             <Container>
                 <Row>
                     <Col lg={8} className="p-5">

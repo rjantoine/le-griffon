@@ -7,9 +7,9 @@ const LargeListCard = ({post}) => {
         <article className="post hentry post-list">
             <div className="entry-thumb">
                 <figure className="thumb-wrap">
-                    <Link to={'/posts/'+post.slug}>
+                    {post?.frontmatter?.featuredImg?.childImageSharp?.squareFormat && <Link to={'/posts/'+post.slug}>
                         <GatsbyImage alt="" image={post.frontmatter.featuredImg.childImageSharp.squareFormat} className="card-img rounded-10" />
-                    </Link>
+                    </Link>}
                 </figure>
             </div>
             <div className="content-entry-wrap">
